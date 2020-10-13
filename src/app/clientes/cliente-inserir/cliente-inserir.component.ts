@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./cliente-inserir.component.scss']
 })
 export class ClienteInserirComponent {
+  nome: string;
+  fone: string;
+  email: string;
+  onAdicionarCliente(){
+    console.log('Inserindo Clientes!!!');
+  }
 
 }
