@@ -1,7 +1,20 @@
-<input type="text" placeholder="nome" [(ngModel)]="nome"/>
-<hr/>
-<input type="text" placeholder="fone"[(ngModel)]="fone"/>
-<hr/>
-<input type="text" placeholder="email"[(ngModel)]="email"/>
-<hr/>
-<button (click)="onAdicionarCliente()">Inserir Cliente</button>
+<div class="container h-100 d-flex justify-content-center align-items-center flex-column">
+  <form class="col-4">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input matInput id="nome" class="form-control" type="text" placeholder="nome" [(ngModel)]="nome"/>
+    </div>
+    <hr/>
+    <div class="form-group">
+      <label for="fone">Fone:</label>
+      <input matInput id="fone" class="form-control" type="text" placeholder="fone"[(ngModel)]="fone"/>
+    </div>
+    <hr/>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input matInput id="email" class="form-control" type="text" placeholder="email"[(ngModel)]="email"/>
+    </div>
+    <hr/>
+    <button class="btn btn-block btn-primary" (click)="onAdicionarCliente()">Inserir Cliente</button>
+  </form>
+  </div>
