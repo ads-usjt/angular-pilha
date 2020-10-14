@@ -149,6 +149,12 @@
               "devServerTarget": "angular-pilha:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/angular-pilha/"
+          }
         }
       }
     }
