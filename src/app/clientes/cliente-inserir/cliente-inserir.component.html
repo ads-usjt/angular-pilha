@@ -1,17 +1,15 @@
-<div class="centered-container">
-  <mat-card>
-    <mat-form-field>
-      <input matInput type="text" placeholder="nome" [(ngModel)]="nome"/>
-    </mat-form-field>
-    <hr/>
-    <mat-form-field>
-      <input matInput type="text" placeholder="fone"[(ngModel)]="fone"/>
-    </mat-form-field>
-    <hr/>
-    <mat-form-field>
-      <input matInput type="text" placeholder="email"[(ngModel)]="email"/>
-    </mat-form-field>
-    <hr/>
-    <button mat-raised-button color="primary" (click)="onAdicionarCliente()">Inserir Cliente</button>
-  </mat-card>
-</div>
+<mat-card>
+  <mat-form-field>
+    <input matInput type="text" placeholder="nome" [(ngModel)]="nome"/>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="fone"[(ngModel)]="fone"/>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="email"[(ngModel)]="email"/>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="onAdicionarCliente()">Inserir Cliente</button>
+</mat-card>

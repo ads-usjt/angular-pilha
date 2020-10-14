@@ -10,11 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CabecalhoComponent } from './cabecalho/cabecalho.component';
+import { ClienteListaComponent } from './clientes/cliente-lista/cliente-lista.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClienteInserirComponent
+    ClienteInserirComponent,
+    CabecalhoComponent,
+    ClienteListaComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatInputModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

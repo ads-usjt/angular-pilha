@@ -1,7 +1,10 @@
-.centered-container{
-  height: 100%;
-  display:flex;
+mat-card {
+  display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  max-width: 500px;
+  margin: auto;
+}
+mat-form-field {
+  width: 100%;
 }
