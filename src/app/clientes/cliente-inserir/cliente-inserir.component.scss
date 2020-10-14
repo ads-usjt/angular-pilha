@@ -2,9 +2,7 @@ mat-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 500px;
-  margin: auto;
-}
-mat-form-field {
-  width: 100%;
+  mat-form-field {
+    width: 100%;
+  }
 }
