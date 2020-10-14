@@ -7,17 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClienteListaComponent {
 
-  clientes = [
-    {
-      nome: 'Hamilton',
-      fone: '11999999999',
-      email: 'hamilton@usjt.br'
-    },
-    {
-      nome: 'Arthur',
-      fone: '24999998888',
-      email: 'arthur@usjt.br'
-    }
-  ]
+  clientes = [];
 
 }

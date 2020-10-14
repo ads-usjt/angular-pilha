@@ -1,4 +1,4 @@
-<mat-accordion>
+<mat-accordion *ngIf="clientes.length > 0">
   <mat-expansion-panel *ngFor="let cliente of clientes">
     <mat-expansion-panel-header>
       {{cliente.nome}}
@@ -7,3 +7,6 @@
     <p>Email: {{cliente.email}}</p>
   </mat-expansion-panel>
 </mat-accordion>
+<h2 class="mat-body-1 text-center" *ngIf="clientes.length<=0">
+  Nenhum Cliente Cadastrado
+</h2>

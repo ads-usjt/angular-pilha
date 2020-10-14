@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-cliente-inserir',
@@ -6,11 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./cliente-inserir.component.scss']
 })
 export class ClienteInserirComponent {
+  @Output()
+  clienteAdicionado = new EventEmitter();
+
   nome: string;
   fone: string;
   email: string;
+
   onAdicionarCliente(){
-    console.log('Inserindo Clientes!!!');
+    const cliente = {
+      nome: this.nome,
+      email: this.email,
+      fone: this.fone,
+    }
+    this.clienteAdicionado.emit(cliente);
   }
 
 }
