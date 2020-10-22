@@ -1,25 +1,21 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-
+import { Cliente } from '../cliente.model';
 @Component({
   selector: 'app-cliente-inserir',
   templateUrl: './cliente-inserir.component.html',
-  styleUrls: ['./cliente-inserir.component.scss']
+  styleUrls: ['./cliente-inserir.component.scss'],
 })
 export class ClienteInserirComponent {
-  @Output()
-  clienteAdicionado = new EventEmitter();
-
+  @Output() clienteAdicionado = new EventEmitter<Cliente>();
   nome: string;
   fone: string;
   email: string;
-
-  onAdicionarCliente(){
-    const cliente = {
+  onAdicionarCLiente() {
+    const cliente: Cliente = {
       nome: this.nome,
-      email: this.email,
       fone: this.fone,
-    }
+      email: this.email,
+    };
     this.clienteAdicionado.emit(cliente);
   }
-
 }
