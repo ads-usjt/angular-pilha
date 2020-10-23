@@ -11,6 +11,7 @@ export class ClienteInserirComponent {
   clienteAdicionado = new EventEmitter<Cliente>();
 
   onAdicionarCliente(form: NgForm) {
+    if (form.invalid) return
     const cliente: Cliente = {
       nome: form.value.nome,
       fone: form.value.fone,

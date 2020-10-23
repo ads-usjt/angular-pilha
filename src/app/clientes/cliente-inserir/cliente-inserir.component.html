@@ -9,7 +9,9 @@
         ngModel
         required
         minlength="3"
+        #nome="ngModel"
       />
+      <mat-error *ngIf="nome.invalid">Digite um nome válido</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -20,7 +22,9 @@
         name="fone"
         ngModel
         required
+        #fone="ngModel"
       />
+      <mat-error *ngIf="fone.invalid">Digite um telefone válido</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -31,7 +35,9 @@
         name="email"
         ngModel
         required
+        #email="ngModel"
       />
+      <mat-error *ngIf="email.invalid">Digite um e-mail válido</mat-error>
     </mat-form-field>
 
     <button mat-raised-button color="primary">
