@@ -1,7 +1,9 @@
 const http = require('http');
-const server = http.createServer((req, res) => {
-  res.end('Helloow detective');
-});
+const app = require('./app');
 
 const port = process.env.PORT || 3000;
-server.listen(port, () => console.log(`🧨 Server running at ${port}`));
+app.set('port', port);
+
+const server = http.createServer(app);
+
+server.listen(port, () => console.log(`🧨 Server running at http://localhost:${port}/`));
