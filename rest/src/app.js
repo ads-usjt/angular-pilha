@@ -1,23 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
+const Cliente = require('./models/cliente');
+const mongoose = require('mongoose');
 
-const clientes = [
-  {
-    id: '1',
-    nome: 'Jose',
-    fone: '12345678',
-    email: 'jose@email.com'
-  },
-  {
-    id: '2',
-    nome: 'Maria',
-    fone: '12343675',
-    email: 'mariajose@email.com'
-  },
-]
+mongoose.connect('mongodb+srv://root:root@cluster0.1erzi.mongodb.net/Cliente?retryWrites=true&w=majority')
+  .then(() => console.log('🎲 Conectado ao MongoDB'))
+  .catch((err) => console.error(`🎲 Falha ao conectar ao MongoDB: ${err.message}`));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -26,19 +16,34 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/clientes',(req, res, next) => {
+app.get('/api/clientes', async (req, res, next) => {
   res.json({
-    message: 'ok',
-    clientes,
+    clientes: await Cliente.find()
+  });
+});
+
+app.get('/api/clientes/:id', async (req, res, next) => {
+  const { id } = req.params;
+  res.json({
+    cliente: await Cliente.findById(id)
+  });
+});
+
+app.delete('/api/clientes/:id', async (req, res, next) => {
+  const { id } = req.params;
+  res.json({
+    cliente: await Cliente.findByIdAndDelete(id)
   });
 });
 
 app.post('/api/clientes',(req, res, next) => {
-  const { id, nome, fone, email } = req.body;
-  const cliente = { id, nome, fone, email };
-  clientes = [...clientes, cliente];
+  const { nome, fone, email } = req.body;
+  const cliente = new Cliente({
+    nome, fone, email
+  });
+  cliente.save();
   res.status(201).json({
-    message: 'cliente created successfully',
+    message: 'cliente inserido com sucesso',
     cliente,
   });
 });
