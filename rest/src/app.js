@@ -3,7 +3,7 @@ const app = express();
 const Cliente = require('./models/cliente');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://root:root@cluster0.1erzi.mongodb.net/Cliente?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://root:root@cluster0.1erzi.mongodb.net/Cliente?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('🎲 Conectado ao MongoDB'))
   .catch((err) => console.error(`🎲 Falha ao conectar ao MongoDB: ${err.message}`));
 
@@ -32,6 +32,7 @@ app.get('/api/clientes/:id', async (req, res, next) => {
 app.delete('/api/clientes/:id', async (req, res, next) => {
   const { id } = req.params;
   res.json({
+    message: 'Cliente removido com sucesso',
     cliente: await Cliente.findByIdAndDelete(id)
   });
 });

@@ -18,9 +18,13 @@ export class ClienteListaComponent implements OnInit, OnDestroy {
 
     let clientesObservable: Observable<Cliente[]> = this.clienteService.getListaCientesAtualizadaObservable();
 
-    this.clientesSubscription = clientesObservable.subscribe((clientes: Array<Cliente>)=>{
+    this.clientesSubscription = clientesObservable.subscribe((clientes: Array<Cliente>) => {
       this.clientes = clientes;
     });
+  }
+
+  onDelete(id: string){
+    this.clienteService.removerCliente(id);
   }
 
   ngOnDestroy(): void {

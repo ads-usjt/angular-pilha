@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Cliente } from './cliente.model';
 
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,33 @@ export class ClienteService {
 
   private clientes: Array<Cliente> = [];
 
-  constructor(public httpClient: HttpClient) { }
-
   private listaClientesAtualizada = new Subject<Cliente[]>();
 
+  constructor(public httpClient: HttpClient) { }
+
+  removerCliente(id: string): void {
+    this.httpClient.delete<{message: string, cliente: any}>(`http://localhost:3000/api/clientes/${id}`)
+      .subscribe(dados => {
+        console.log(dados);
+        this.clientes = this.clientes.filter(cliente => cliente.id !== id);
+        this.listaClientesAtualizada.next([...this.clientes]);
+      });
+  }
+
   getClientes(): void {
-    this.httpClient.get<{mensagem: string, clientes: Array<Cliente>}>(
+    this.httpClient.get<{mensagem: string, clientes: Array<any>}>(
       'http://localhost:3000/api/clientes'
-    ).subscribe( dados => {
-      this.clientes = dados.clientes;
-      this.listaClientesAtualizada.next([...this.clientes]);
-    });
+    )
+      .pipe(map( dados => dados.clientes.map(cliente => {
+          return {
+            id: cliente._id, ...cliente
+          }
+        })
+      ))
+      .subscribe( clientes => {
+        this.clientes = clientes;
+        this.listaClientesAtualizada.next([...this.clientes]);
+      });
   }
 
   adicionarCliente(nome: string, fone: string, email: string): void{
@@ -31,14 +48,22 @@ export class ClienteService {
       fone,
       email,
     }
-    this.httpClient.post<{mensagem: string, cliente: Cliente}>(
+    this.httpClient.post<{message: string, cliente: any}>(
       'http://localhost:3000/api/clientes',
       cliente
-    ).subscribe(dados => {
-      console.log(dados.mensagem);
-      this.clientes.push(cliente);
-      this.listaClientesAtualizada.next([...this.clientes]);
-    });
+    )
+      .pipe(map( dados => {
+          const { message, cliente } = dados;
+          return {
+            message,
+            cliente: { id: cliente._id, ...cliente}
+          }
+      }))
+      .subscribe(dados => {
+        console.log(dados);
+        this.clientes.push(dados.cliente);
+        this.listaClientesAtualizada.next([...this.clientes]);
+      });
   }
 
   getListaCientesAtualizadaObservable(){
