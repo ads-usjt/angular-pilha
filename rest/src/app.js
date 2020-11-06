@@ -1,9 +1,13 @@
 const express = require('express');
-const app = express();
 const Cliente = require('./models/cliente');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://root:root@cluster0.1erzi.mongodb.net/Cliente?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
+const app = express();
+
+mongoose.connect(
+    'mongodb+srv://root:root@cluster0.1erzi.mongodb.net/Cliente?retryWrites=true&w=majority',
+    {useNewUrlParser: true, useUnifiedTopology: true}
+  )
   .then(() => console.log('🎲 Conectado ao MongoDB'))
   .catch((err) => console.error(`🎲 Falha ao conectar ao MongoDB: ${err.message}`));
 
@@ -37,12 +41,12 @@ app.delete('/api/clientes/:id', async (req, res, next) => {
   });
 });
 
-app.post('/api/clientes',(req, res, next) => {
+app.post('/api/clientes', async (req, res, next) => {
   const { nome, fone, email } = req.body;
-  const cliente = new Cliente({
-    nome, fone, email
-  });
-  cliente.save();
+  const cliente = new Cliente({ nome, fone, email });
+
+  await cliente.save();
+
   res.status(201).json({
     message: 'cliente inserido com sucesso',
     cliente,
