@@ -45,7 +45,7 @@ export class ClienteService {
   }
 
   getCliente(id: string){
-    return {...this.clientes.find(cliente => cliente.id === id)};
+    return this.httpClient.get<{ cliente: any }>(`http://localhost:3000/api/clientes/${id}`);
   }
 
   atualizarCliente(id: string, nome: string, fone: string, email: string){

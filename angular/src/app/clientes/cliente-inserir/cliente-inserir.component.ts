@@ -20,7 +20,14 @@ export class ClienteInserirComponent implements OnInit {
       if (paramMap.has('id')) {
         this.modo = 'editar';
         this.id = paramMap.get('id');
-        this.cliente = this.clienteService.getCliente(this.id);
+        this.clienteService.getCliente(this.id).subscribe(({ cliente }) => {
+          this.cliente = {
+            id : cliente._id,
+            nome: cliente.nome,
+            fone: cliente.fone,
+            email: cliente.email
+          }
+        });
       } else {
         this.modo= 'criar';
         this.id = null;
