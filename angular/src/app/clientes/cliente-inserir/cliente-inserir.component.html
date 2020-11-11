@@ -10,6 +10,7 @@
         required
         minlength="3"
         #nome="ngModel"
+        [ngModel]="cliente?.nome"
       />
       <mat-error *ngIf="nome.invalid">Digite um nome válido</mat-error>
     </mat-form-field>
@@ -23,6 +24,7 @@
         ngModel
         required
         #fone="ngModel"
+        [ngModel]="cliente?.fone"
       />
       <mat-error *ngIf="fone.invalid">Digite um telefone válido</mat-error>
     </mat-form-field>
@@ -36,11 +38,12 @@
         ngModel
         required
         #email="ngModel"
+        [ngModel]="cliente?.email"
       />
       <mat-error *ngIf="email.invalid">Digite um e-mail válido</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary">
+    <button mat-raised-button color="accent">
       Inserir Cliente
     </button>
   </form>

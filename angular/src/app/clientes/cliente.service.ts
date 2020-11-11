@@ -44,6 +44,31 @@ export class ClienteService {
 
   }
 
+  getCliente(id: string){
+    return {...this.clientes.find(cliente => cliente.id === id)};
+  }
+
+  atualizarCliente(id: string, nome: string, fone: string, email: string){
+
+    const cliente: Cliente = { id, nome, fone, email };
+
+    this.httpClient.put<{ message: string, cliente: any }>(
+      `http://localhost:3000/api/clientes/${id}`,
+      cliente
+    ).subscribe( dados => {
+      console.log( dados );
+
+      const copia = [...this.clientes];
+      const indice = copia.findIndex( cli => cli.id === cliente.id );
+
+      copia[ indice ]= cliente;
+
+      this.clientes = copia;
+      this.listaClientesAtualizada.next([ ...this.clientes ]);
+    });
+
+  }
+
   adicionarCliente( nome: string, fone: string, email: string ): void{
 
     const cliente: Cliente = { nome, fone, email }

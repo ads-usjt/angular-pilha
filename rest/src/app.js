@@ -16,7 +16,7 @@ app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, PUT, OPTIONS')
   next();
 });
 
@@ -52,5 +52,16 @@ app.post('/api/clientes', async (req, res, next) => {
     cliente,
   });
 });
+
+app.put('/api/clientes/:id', async (req, res, next) => {
+  const { id, nome, fone, email } = req.body;
+  const cliente = new Cliente({
+    _id: id, nome, fone, email,
+  });
+  res.json({
+    message: 'cliente atualizado com sucesso',
+    cliente: await Cliente.updateOne({ _id: id}, cliente)
+  });
+})
 
 module.exports = app;
