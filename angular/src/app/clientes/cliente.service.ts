@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,7 +14,12 @@ export class ClienteService {
 
   private listaClientesAtualizada = new Subject<Cliente[]>();
 
-  constructor( public httpClient: HttpClient ){}
+  constructor(
+
+    private httpClient: HttpClient,
+    private router: Router
+
+  ){}
 
   removerCliente(id: string): void {
 
@@ -65,6 +71,7 @@ export class ClienteService {
 
       this.clientes = copia;
       this.listaClientesAtualizada.next([ ...this.clientes ]);
+      this.router.navigate(['/']);
     });
 
   }
@@ -88,6 +95,7 @@ export class ClienteService {
         console.log( dados );
         this.clientes.push( dados.cliente );
         this.listaClientesAtualizada.next([ ...this.clientes ]);
+        this.router.navigate(['/']);
       });
 
   }

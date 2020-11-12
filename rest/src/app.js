@@ -1,6 +1,7 @@
 const express = require('express');
-const Cliente = require('./models/cliente');
 const mongoose = require('mongoose');
+
+const clientesRoutes = require('./routes/cliente');
 
 const app = express();
 
@@ -20,48 +21,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/clientes', async (req, res, next) => {
-  res.json({
-    clientes: await Cliente.find()
-  });
-});
-
-app.get('/api/clientes/:id', async (req, res, next) => {
-  const { id } = req.params;
-  res.json({
-    cliente: await Cliente.findById(id)
-  });
-});
-
-app.delete('/api/clientes/:id', async (req, res, next) => {
-  const { id } = req.params;
-  res.json({
-    message: 'Cliente removido com sucesso',
-    cliente: await Cliente.findByIdAndDelete(id)
-  });
-});
-
-app.post('/api/clientes', async (req, res, next) => {
-  const { nome, fone, email } = req.body;
-  const cliente = new Cliente({ nome, fone, email });
-
-  await cliente.save();
-
-  res.status(201).json({
-    message: 'cliente inserido com sucesso',
-    cliente,
-  });
-});
-
-app.put('/api/clientes/:id', async (req, res, next) => {
-  const { id, nome, fone, email } = req.body;
-  const cliente = new Cliente({
-    _id: id, nome, fone, email,
-  });
-  res.json({
-    message: 'cliente atualizado com sucesso',
-    cliente: await Cliente.updateOne({ _id: id}, cliente)
-  });
-})
+app.use('/api/clientes', clientesRoutes);
 
 module.exports = app;
