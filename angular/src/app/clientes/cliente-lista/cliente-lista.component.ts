@@ -11,15 +11,18 @@ export class ClienteListaComponent implements OnInit, OnDestroy {
   constructor(public clienteService: ClienteService) { }
 
   clientes: Array<Cliente> = [];
+  estaCarregando: boolean = false;
   private clientesSubscription: Subscription;
 
   ngOnInit(): void {
+    this.estaCarregando = true;
     this.clienteService.getClientes();
 
     let clientesObservable: Observable<Cliente[]> = this.clienteService.getListaCientesAtualizadaObservable();
 
     this.clientesSubscription = clientesObservable.subscribe((clientes: Array<Cliente>) => {
       this.clientes = clientes;
+      this.estaCarregando = false;
     });
   }
 

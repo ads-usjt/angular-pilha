@@ -1,9 +1,19 @@
 mat-card {
   display: flex;
   flex-direction: column;
+
+  mat-spinner {
+    margin: auto;
+  }
+
+  input[type="file"]{
+    display: none;
+  }
+
   mat-form-field, button {
     width: 100%;
   }
+
   button {
     margin-top: 13px;
   }

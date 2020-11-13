@@ -28,6 +28,7 @@ export class ClienteService {
         console.log(dados);
         this.clientes = this.clientes.filter( cliente => cliente.id !== id );
         this.listaClientesAtualizada.next([ ...this.clientes ]);
+        this.router.navigate(['/']);
       });
 
   }
